@@ -1,6 +1,8 @@
 # Code-Quiz-Homework
 
-<img src="" alt="Code Quiz screenshot">
+<img src="./assets/images/Code Quiz.png" alt="Code Quiz screenshot">
+
+
 
 ## Purpose
 
@@ -13,7 +15,7 @@ Create a timed coding quiz with multiple-choice questions.
 
 ## Website
 
-
+ https://lindseyhsiao.github.io/code-quiz-homework/ 
 
 
 
