@@ -1,5 +1,5 @@
 var currentQuestionIndex = 0;
-var timer = 180;
+var timer = 108;
 var timerInterval;
 var questions = [
     {

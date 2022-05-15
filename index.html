@@ -12,9 +12,10 @@
 
 <body>
     <h1>Code Quiz</h1>
-    <p>Timer: <span id="timer"></span></p>
+    <p class="timer">Timer: <span id="timer">0</span></p>
 
-    <div id="start-screen" class="hidden">
+
+    <div id="start-screen">
         <p>Press start to begin the quiz, good luck!</p>
         <button id="start-quiz-button">Start Quiz</button>
     </div>
@@ -23,8 +24,8 @@
     <div id="questions-screen">
         <!-- display questions -->
         <h2 id="question-text"></h2>
-        <div id="choices-container">
-            <!-- display generated choices-->
+        <div id="choices-container" class="choices button">
+        <!-- display generated choices-->
         </div>
     </div>
 
