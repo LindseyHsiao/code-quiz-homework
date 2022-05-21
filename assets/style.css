@@ -22,7 +22,8 @@ body {
   }
 
   
-  button {
+  button,
+  .score {
     display: inline-block;
     margin: 5px;
     cursor: pointer;
@@ -43,6 +44,7 @@ body {
   .choices button {
     display: block;
   }
+  
   
 
   

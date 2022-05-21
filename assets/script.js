@@ -1,3 +1,5 @@
+
+
 var currentQuestionIndex = 0;
 var timer = 108;
 var timerInterval;
@@ -21,14 +23,14 @@ var questions = [
             "Quotes",
             "Square Brackets",
         ],
-        answer: "Curly Brackets", 
+        answer: "Curly Brackets",
     },
     {
         question: "Javascript is a case sensitive language",
         choices: [
             "True",
             "False",
-            
+
         ],
         answer: "True",
     },
@@ -51,8 +53,7 @@ var questions = [
             "<script>",
         ],
         answer: "<script>"
-    },
-    {}
+    }
 ]
 
 
@@ -63,37 +64,45 @@ var questionText = document.getElementById("question-text");
 var choicesContainer = document.getElementById("choices-container");
 var highScoresScreen = document.getElementById("highscores-screen");
 var timerSpan = document.getElementById("timer");
+var finalScore = document.getElementById("final-score");
+var submitScoreBtn = document.getElementById("submit-btn");
+var timerInterval;
+var scoreBoardScreen = document.getElementById("score-board-screen");
+var scoreBoard = document.getElementById("score-board");
 
 function startQuiz() {
     startScreen.classList.add("hidden");
+    questionsScreen.classList.remove('hidden');
     timerSpan.textContent = timer;
+    startTime();
     displayQuestion();
 }
 
 function startTime() {
-    timerInterval => setInterval(() => {
+    timerInterval = setInterval(() => {
         timer--;
 
         if (timer > 0) {
             timerSpan.textContent = timer;
         }
-        if (timer <= 0) { 
+        if (timer <= 0) {
             endQuiz();
         }
     }, 1000);
 }
-questionText.textContent = questions[currentQuestionIndex].question;
 
-var choices = questions[currentQuestionIndex].choices;
+// questionText.textContent = questions[currentQuestionIndex].question;
 
-for (let i = 0; i < choices.length; i++) {
-    const choice = choices[i];
-    var choiceElementButton = document.createElement("button");
-    choiceElementButton.textContent = choice;
-    choiceElementButton.addEventListener("click", checkAnswer);
-    choicesContainer.appendChild(choiceElementButton);
+// var choices = questions[currentQuestionIndex].choices;
 
-}
+// for (let i = 0; i < choices.length; i++) {
+//     const choice = choices[i];
+//     var choiceElementButton = document.createElement("button");
+//     choiceElementButton.textContent = choice;
+//     choiceElementButton.addEventListener("click", checkAnswer);
+//     choicesContainer.appendChild(choiceElementButton);
+
+// }
 
 
 function displayQuestion() {
@@ -121,15 +130,17 @@ function checkAnswer(event) {
 
     if (!isCorrect) {
         timer = timer - 10;
+        timerSpan.textContent = timer;
     }
-    currentQuestionIndex = currentQuestionIndex + 1;
 
-    if (currentQuestionIndex < questions.length) {
-        displayQuestion();
+    currentQuestionIndex++;
 
+    if (currentQuestionIndex === questions.length) {
+
+        endQuiz();
     }
     else {
-        endQuiz();
+        displayQuestion();
     }
 
 }
@@ -139,16 +150,56 @@ function endQuiz() {
     clearInterval(timerInterval);
     questionsScreen.classList.add("hidden");
     highScoresScreen.classList.remove("hidden");
+    finalScore.textContent = timer;
+}
+
+function saveScore() {
+    // capture content of initials input
+    var initials = document.getElementById("initials").value;
+
+    //create an empty array to store our high scores
+
+    var highScores = [];
+    var local = JSON.parse(localStorage.getItem("highScores"));
+    // if (local != null) {
+    //     highScores.append(local);
+
+    // }
+
+    // create and object that will store your score and intitals together
+    var userScore = {
+        initials: initials,
+        score: timer
+    };
+
+    //add the userScore to the highScores array
+    highScores.push(userScore); 
+    console.log(highScores);
+
+    // save the data into local storage
+    localStorage.setItem('highScores', JSON.stringify(highScores));
+
+    //show scores
+    console.log("stored to local")
+    displayScoreBoard();
+}
+
+function displayScoreBoard() {
+    highScoresScreen.classList.add("hidden");
+    scoreBoardScreen.classList.remove('hidden');
+    var ulEl = document.getElementById("score-board");
+    var liEl = document.createElement("li");
+    var getStorage = JSON.parse(localStorage.getItem("highScores"));
+console.log(getStorage);
+    for (var i=0; i < getStorage.length; i++) {
+        liEl.setAttribute("class", "score");
+        console.log([i]);
+        liEl.innerHTML = getStorage[i].initials+": "+getStorage[i].score;
+        ulEl.append(liEl);
+
+    }
 }
 
 
-
-startQuizButton.addEventListener("click", function () {
-    console.log("start quiz")
-
-    //show first question
-
-    startQuiz();
-
-    //start timer, display time left
-});
+startQuizButton.addEventListener("click", startQuiz);
+submitScoreBtn.addEventListener("click", saveScore);

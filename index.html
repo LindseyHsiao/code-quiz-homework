@@ -11,17 +11,18 @@
 
 
 <body>
-    <h1>Code Quiz</h1>
+    
     <p class="timer">Timer: <span id="timer">0</span></p>
 
 
     <div id="start-screen">
+        <h1>Code Quiz</h1>
         <p>Press start to begin the quiz, good luck!</p>
         <button id="start-quiz-button">Start Quiz</button>
     </div>
 
 
-    <div id="questions-screen">
+    <div id="questions-screen" class="hidden">
         <!-- display questions -->
         <h2 id="question-text"></h2>
         <div id="choices-container" class="choices button">
@@ -34,11 +35,18 @@
         <p>Your final score is <span id="final-score"></span>.</p>
         <p>
           Enter initials: <input type="text" id="initials" max="3" />
-          <button id="submit">Submit</button>
+          <button id="submit-btn">Submit</button>
         </p>
       </div>
 
     <!-- end of quiz screen with high scores-->
+    <div id="score-board-screen" class="hidden">
+        <h2>High Scores</h2>
+        <ul id="score-board">
+            
+        </ul>
+      </div>
+
 
     <script src="assets/script.js"></script>
 </body>
